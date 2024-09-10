@@ -1,0 +1,5 @@
+Package Manager Console -> 
+
+add-migration <nazwa migracji>
+
+update-database //wykonanie zmian
