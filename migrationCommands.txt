@@ -3,3 +3,15 @@ Package Manager Console ->
 add-migration <nazwa migracji>
 
 update-database //wykonanie zmian
+
+
+
+
+//------------------------------------
+dotnet user-secrets init
+
+$sa_password = "np. <3database^_^"
+
+dotnet user-secrets set "ConnectionStrings:DatabaseStoreContext" "Server=127.0.0.1;Database=test;User=root;Password=$sa_password"
+
+dotnet user-secrets list

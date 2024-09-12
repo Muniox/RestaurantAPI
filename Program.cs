@@ -1,4 +1,5 @@
 using RestaurantAPI.Entities;
+using RestaurantAPI.Services;
 using System.Reflection;
 
 namespace RestaurantAPI
@@ -19,6 +20,7 @@ namespace RestaurantAPI
             builder.Services.AddScoped<RestaurantSeeder>();
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
             //builder.Services.AddAutoMapper(typeof(RestaurantMappingProfile));
+            builder.Services.AddScoped<IRestaurantService, RestaurantService>();
 
             var app = builder.Build();
 
