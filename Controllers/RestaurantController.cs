@@ -14,6 +14,20 @@ namespace RestaurantAPI.Controllers
             _restaurantService = restaurantService;
         }
 
+        [HttpDelete]
+        [Route("{id}")]
+        public ActionResult Delete([FromRoute] int id)
+        {
+            var isDeleted = _restaurantService.Delete(id);
+
+            if (!isDeleted)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
+
         [HttpGet]
         public ActionResult<IEnumerable<RestaurantDto>> GetAll() //jeśli chcemy tylko zwrocic dane do otczytu uzywamy IEnumerable. It avoids unnecessary copying or modification operations
         {
