@@ -34,6 +34,7 @@ namespace RestaurantAPI
             //builder.Services.AddAutoMapper(typeof(RestaurantMappingProfile));
             builder.Services.AddScoped<IRestaurantService, RestaurantService>();
             builder.Services.AddScoped<ErrorHandlingMiddleware>();
+            builder.Services.AddScoped<RequestTimeMiddleware>();
 
             //builder.Services.AddEndpointsApiExplorer(); //Only for minimal API
             builder.Services.AddSwaggerGen();
@@ -49,10 +50,11 @@ namespace RestaurantAPI
             }
 
             //Middlewares
-            if (!app.Environment.IsDevelopment())
+            if (app.Environment.IsProduction())
             {
-                app.UseMiddleware<ErrorHandlingMiddleware>();
+                app.UseMiddleware<ErrorHandlingMiddleware>(); //custom b³¹d 500
             }
+            app.UseMiddleware<RequestTimeMiddleware>();
 
             if (app.Environment.IsDevelopment())
             {
