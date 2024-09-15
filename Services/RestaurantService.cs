@@ -19,10 +19,12 @@ namespace RestaurantAPI.Services
     {
         private readonly RestaurantDbContext _restaurantDbContext;
         private readonly IMapper _mapper;
-        public RestaurantService(RestaurantDbContext restaurantDbContext, IMapper mapper)
+        private readonly ILogger<RestaurantService> _logger;
+        public RestaurantService(RestaurantDbContext restaurantDbContext, IMapper mapper, ILogger<RestaurantService> logger)
         {
             _restaurantDbContext = restaurantDbContext;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public bool Update(int id, UpdateRestaurantDto dto)
@@ -31,6 +33,7 @@ namespace RestaurantAPI.Services
 
             if (restaurant is null)
             {
+                //throw new NotFoundException("Restaurant not found");
                 return false;
             }
 
@@ -45,6 +48,8 @@ namespace RestaurantAPI.Services
 
         public bool Delete(int id)
         {
+            _logger.LogWarning($"Restaurant with id: {id} DELETE acrion invoked");
+
             var restaurant = _restaurantDbContext
                 .Restaurants
                 .FirstOrDefault(r => r.Id == id);
@@ -78,6 +83,8 @@ namespace RestaurantAPI.Services
 
         public IEnumerable<RestaurantDto> GetAll()
         {
+            _logger.LogError($"Returned all Restaurants :)");
+
             var restaurants = _restaurantDbContext
                 .Restaurants
                 .Include(r => r.Address)

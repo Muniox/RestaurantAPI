@@ -5,7 +5,7 @@ namespace RestaurantAPI.Entities
     public class RestaurantDbContext : DbContext
     {
         //var connString = builder.Configuration.GetConnectionString("DatabaseStoreContext");
-        private string _connectionString = "Server=127.0.0.1;Database=RestaurantDB;User=root;Password=<3database^_^";
+        private readonly string _connectionString = "Server=127.0.0.1;Database=RestaurantDB;User=root;Password=<3database^_^";
 
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<Address> Addresses { get; set; }
@@ -39,6 +39,7 @@ namespace RestaurantAPI.Entities
         {
             //UseSqlServer // driver dla mssql
             //UseMySql // driver dla mysql
+
             optionsBuilder.UseMySQL(_connectionString);
         }
     }
